@@ -9,7 +9,7 @@ A script that uses ffmpeg to stream TV test pattern and 1 kHz tone to Twitch.
 0. `sudo add-apt-repository ppa:deadsnakes/ppa`
 0. `sudo apt update`
 0. `sudo apt install ffmpeg libx264 python3.8`
-1. Edit `settings.py`: go to [https://stream.twitch.tv/ingests/](Recommended Ingest Endpoints For You), copy #1 and replace `INGEST_HERE` with it.
+1. Edit `settings.py`: go to [Recommended Ingest Endpoints For You](https://stream.twitch.tv/ingests/), copy #1 and replace `INGEST_HERE` with it.
 2. Edit `secrets.py` to include your stream key.
 
 ## Usage
