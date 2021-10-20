@@ -30,7 +30,7 @@ def main():
     process = Process(
         target=subprocess.run,
         args=(' '.join(ffmpeg_cmd).split(' '), ),
-        kwargs={'stdout': subprocess.DEVNULL, 'stderr': subprocess.DEVNULL}
+        # kwargs={'stdout': subprocess.DEVNULL, 'stderr': subprocess.DEVNULL}
     )
     process.start()
 
