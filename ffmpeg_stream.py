@@ -1,32 +1,41 @@
+import sys
+from multiprocessing import Process
 import subprocess
-import itertools
-from secrets import *
+import signal
+import time
 
+import settings
+import secrets
 
-ffmpeg_cmd = [
-    'ffmpeg',
+process = None
+slider_position = 1
 
-    '-framerate', '15',
-    '-re', # Read input at native frame rate.
-    '-loop', '1',
-    '-i', 'test_pattern.png', # TV test pattern
+def sigint_handler(sig, frame):
+    if process is not None:
+        process.kill()
+    sys.exit(0)
+signal.signal(signal.SIGINT, sigint_handler)
 
-    '-re',
-    '-f', 'lavfi', # filter input
-    '-i', 'sine=frequency=1000', # 1kHz sound
+def main():
+    ffmpeg_cmd = (
+        'ffmpeg',
+        '-framerate 15 -re -loop 1 -i test_pattern.png -re',
+        '-f lavfi -i sine=frequency=1000',
+        '-vf scale=1920:1080:flags=lanczos,setsar=1:1 -vcodec libx264 -preset ultrafast -tune stillimage',
+        '-b:v 128k -acodec aac -b:a 64k',
+        '-f flv -strict -2',
+        f'{settings.ingest}{secrets.stream_key}',
+    )
 
-    # codecs and bitrate
-    '-vf', 'scale=1920:1080:flags=lanczos,setsar=1:1',
-    '-vcodec', 'libx264', '-preset', 'ultrafast', '-x264opts', 'keyint=30:scenecut=0', '-tune', 'stillimage', '-b:v', '128k',
-    '-g', '60',
+    process = Process(
+        target=subprocess.run,
+        args=(' '.join(ffmpeg_cmd).split(' '), ),
+        kwargs={'stdout': subprocess.DEVNULL, 'stderr': subprocess.DEVNULL}
+    )
+    process.start()
 
-    '-acodec', 'aac', '-b:a', '64k',
+    while process.is_alive():
+        time.sleep(0.5)
 
-    '-f', 'flv', # output in flv format
-    '-threads', '0',
-    '-strict', '-2', # for some reason aac codec wasn't working for me without this
-    '-rtmp_buffer', '0',
-    'INGEST'
-]
-print(' '.join(ffmpeg_cmd))
-# subprocess.run(ffmpeg_cmd)
+if __name__ == '__main__':
+    main()
