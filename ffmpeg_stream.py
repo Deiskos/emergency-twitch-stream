@@ -19,10 +19,15 @@ signal.signal(signal.SIGINT, sigint_handler)
 def main():
     ffmpeg_cmd = (
         'ffmpeg',
+        # image input
         '-framerate 15 -re -loop 1 -i test_pattern.png -re',
+        # sound generation
         '-f lavfi -i sine=frequency=1000',
+        # video processing and codecs
         '-vf scale=1920:1080:flags=lanczos,setsar=1:1 -vcodec libx264 -preset ultrafast -tune stillimage',
+        # audio codecs
         '-b:v 128k -acodec aac -b:a 64k',
+        # output format
         '-f flv -strict -2',
         f'{settings.ingest}{secrets.stream_key}',
     )
