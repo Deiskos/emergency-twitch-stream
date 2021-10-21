@@ -58,7 +58,8 @@ def main():
         fallback()
     elif args.generate:
         with Path(settings.prerecorded_file) as path:
-            path.rename('{}.old'.format(settings.prerecorded_file))
+            if path.is_file():
+                path.rename('{}.old'.format(settings.prerecorded_file))
         run_ffmpeg(record_args)
     elif not file_exists(settings.prerecorded_file):
         print('No prerecorded file found, starting fallback', file=sys.stderr)
