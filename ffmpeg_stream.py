@@ -6,10 +6,8 @@ import argparse
 from pathlib2 import Path
 import subprocess
 import signal
-import time
 
 import settings
-import secrets
 from ffmpeg_commands import stream_fallback_args, stream_blank_args, \
     stream_prerecorded_args, record_args
 
