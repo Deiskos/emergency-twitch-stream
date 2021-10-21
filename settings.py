@@ -2,7 +2,7 @@
 # rtmp://tpe01.contribute.live-video.net/app/{stream_key}
 # should look like
 # rtmp://tpe01.contribute.live-video.net/app/
-ingest = 'rtmp://tpe01.contribute.live-video.net/app/'
+ingest = 'INGEST'
 
 prerecorded_file = 'prerecorded.flv'
 
