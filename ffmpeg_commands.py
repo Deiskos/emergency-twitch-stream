@@ -48,9 +48,10 @@ record_cmd = (
     # sound generation
     '-i {}'.format(settings.record_audio_source),
     # video processing and codecs
+    '-vf scale=1920:1080:flags=lanczos,setsar=1:1',
     '-vcodec libx264 -b:v 2048k -preset ultrafast -tune stillimage',
     # audio codecs
-    '-acodec aac -b:a 192k',
+    '-ar 48000 -acodec aac -b:a 192k',
     # output format
     '-f flv -r 60 -strict -2',
     # stop when shortest input stream ends
