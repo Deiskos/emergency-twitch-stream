@@ -17,7 +17,7 @@ stream_fallback_cmd = (
     '-vcodec libx264 -b:v 512k -preset ultrafast -tune stillimage',
     '-maxrate 1024k -bufsize 4096k',
     # audio codecs
-    '-acodec aac -b:a 128k',
+    '-ar 48000 -acodec aac -b:a 128k',
     # output format
     '-f flv -strict -2',
     '{}{}'.format(settings.ingest, secrets.stream_key),
@@ -34,7 +34,8 @@ stream_blank_cmd = (
     '-vcodec libx264 -b:v 512k -preset ultrafast -tune stillimage',
     '-maxrate 1024k -bufsize 4096k',
     # audio codecs
-    '-acodec aac -b:a 128k',
+    '-ar 48000 -acodec aac -b:a 128k',
+    # output format
     '-f flv',
     '{}{}'.format(settings.ingest, secrets.stream_key),
 )
@@ -47,7 +48,6 @@ record_cmd = (
     # sound generation
     '-i {}'.format(settings.record_audio_source),
     # video processing and codecs
-    '-vf scale=1920:1080:flags=lanczos,setsar=1:1',
     '-vcodec libx264 -b:v 2048k -preset ultrafast -tune stillimage',
     # audio codecs
     '-acodec aac -b:a 192k',
@@ -64,7 +64,8 @@ stream_prerecorded_cmd = (
     'ffmpeg',
     # image input
     '-re -stream_loop -1 -i {}'.format(settings.prerecorded_file),
-    '-vcodec copy -maxrate 4096k -bufsize 16384k -acodec copy',
+    '-vcodec copy -maxrate 4096k -bufsize 16384k',
+    '-acodec copy',
     '-r 60 -f flv',
     '{}{}'.format(settings.ingest, secrets.stream_key),
 )
