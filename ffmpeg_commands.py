@@ -15,7 +15,7 @@ stream_fallback_cmd = (
     # sound generation
     '-re -f lavfi -i sine=frequency=1000:sample_rate=48000 -af volume=-18dB',
     # video processing and codecs
-    '-vcodec libx264 -b:v 512k -preset ultrafast -tune stillimage',
+    '-vcodec libx264 -b:v 2000k -preset ultrafast -tune stillimage',
     '-maxrate 1024k -bufsize 4096k',
     # audio codecs
     '-ar 48000 -acodec aac -b:a 128k',
@@ -45,7 +45,7 @@ stream_blank_args = make_args(stream_blank_cmd)
 record_cmd = (
     'ffmpeg',
     # image input
-    '-framerate 60 -loop 1 -i {}'.format(settings.record_image_source),
+    '-framerate 30 -loop 1 -i {}'.format(settings.record_image_source),
     # sound generation
     '-i {}'.format(settings.record_audio_source),
     # video processing and codecs
@@ -54,7 +54,7 @@ record_cmd = (
     # audio codecs
     '-ar 48000 -acodec aac -b:a 192k',
     # output format
-    '-f flv -r 60 -strict -2',
+    '-f flv -strict -2',
     # stop when shortest input stream ends
     # in this configuration this will be audio track
     '-shortest',

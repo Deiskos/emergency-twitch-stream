@@ -46,7 +46,6 @@ def fallback():
         run_ffmpeg(stream_fallback_args)
     else:
         print('Starting blank fallback')
-        print('Check your fallback image', file=sys.stderr)
         run_ffmpeg(stream_blank_args)
 
 
