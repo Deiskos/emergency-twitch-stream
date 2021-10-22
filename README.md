@@ -3,7 +3,7 @@ A script that uses ffmpeg to stream to Twitch.
 ## Setup Guide
 ### Requirements
 * ffmpeg
-* python3.7+
+* python2.7
 
 ### Setup
 3. Edit `settings.py`
