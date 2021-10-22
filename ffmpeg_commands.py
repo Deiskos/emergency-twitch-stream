@@ -1,10 +1,11 @@
-from typing import Tuple, List
 import settings
 import secrets
+
 
 def make_args(cmd):
     # type: (Tuple[str, ...]) -> List[str]
     return ' '.join(cmd).split(' ')
+
 
 # since this is a fallback, everything is scaled down to shit
 stream_fallback_cmd = (
