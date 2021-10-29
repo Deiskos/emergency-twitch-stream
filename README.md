@@ -8,7 +8,7 @@ A script that uses ffmpeg to stream to Twitch.
 ### Setup
 3. Edit `settings.py`
 4. Edit `secrets.py`
-5. Provide your own prerecorded file or run `pipenv run python ffmpeg_stream.py --generate`
+5. Provide your own prerecorded file or run `python ffmpeg_stream.py --generate`
 
 ## Usage
 0. Ensure the stream from your PC is down one way or another, Twitch has to show NotLikeThis screen.
